@@ -1,7 +1,7 @@
 from job_class import Vacancy
 from abstract_class import APIEngine
 import requests
-
+import os
 
 class HeadHunter(APIEngine):
 
