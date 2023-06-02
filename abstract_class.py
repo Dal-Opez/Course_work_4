@@ -2,7 +2,10 @@ from abc import ABC, abstractmethod
 
 
 class APIEngine(ABC):
-
+    """
+    Абстрактный класс, содержащий прототипы методов для отправки запроса на получение вакансий
+    и получения списка вакансий
+    """
     @abstractmethod
     def get_request(self):
         pass
@@ -13,6 +16,10 @@ class APIEngine(ABC):
 
 
 class VacancySaver(ABC):
+    """
+    Абстрактный класс, содержащий прототипы методов для добавления вакансий, выбора вакансий и
+    удаления вакансий
+    """
     @abstractmethod
     def add_vacancy(self):
         pass
