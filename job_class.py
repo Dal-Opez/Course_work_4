@@ -1,8 +1,17 @@
 import requests
 
+
 class Vacancy:
+    """
+    Класс, хранящий информацию о вакансиях
+    """
     @staticmethod
     def get_currency():
+        """
+        Используется для создания словаря с валютами и их курсами по отношению к RUB
+        (по какой-то причине валюта BYR не содержится в словаре, поэтому добавление
+        производится вручную)
+        """
         currency_dict = requests.get("https://open.er-api.com/v6/latest/RUB").json()["rates"]
         currency_dict["BYR"] = 27.7339
         print(currency_dict)
@@ -10,6 +19,7 @@ class Vacancy:
 
     currency_dict = get_currency()
     vacancy_list = []
+
     def __init__(self, name: str, url: str, currency: str, salary_from: int, salary_to: int,  description: str):
         self.name = name
         self.url = url
@@ -19,7 +29,6 @@ class Vacancy:
         self.description = description
         self.vacancy_list.append(self)
 
-
     def __repr__(self):
         servise = "HH" if "hh.ru" in self.__url else "SJ"
         if self.__currency != "-":
@@ -27,7 +36,6 @@ class Vacancy:
         else:
             curren = "-"
         return f"{servise} - Vacancy({self.__name}, {self.__url}, {curren}, {self.__salary_from}, {self.__salary_to}, {self.__description})"
-
 
     def __gt__(self, other):
         average_self = round((self.__salary_from + self.__salary_to) / 2)
