@@ -5,8 +5,15 @@ import json
 
 
 class FileManagerMixin:
+    """
+    Класс-миксин для работы с json файлом
+    """
     @staticmethod
     def _file_existing_check(file_path):
+        """
+        Проверяет наличие директории и файла, указанных в file_path и осуществляет их создание,
+        если те не была найдена
+        """
         if not os.path.exists(os.path.dirname(file_path)):
             os.mkdir(os.path.dirname(file_path))
         if not os.path.exists(file_path):
@@ -15,11 +22,17 @@ class FileManagerMixin:
 
     @staticmethod
     def _open_file(file_path):
+        """
+        Открывает файл и считывает информацию в формате JSON
+        """
         with open(file_path, encoding="utf-8") as file:
             return json.load(file)
 
 
 class JSONSaver(VacancySaver, FileManagerMixin):
+    """
+    Класс для работы с json файлом: записи, удаления и выбора вакансий
+    """
     def __init__(self, file_path):
         self.file_path = file_path
 
@@ -33,6 +46,9 @@ class JSONSaver(VacancySaver, FileManagerMixin):
         self._file_existing_check(self.__file_path)
 
     def add_vacancy(self, vacancy):
+        """
+        Добавляет вакансию в json файл
+        """
         file_data = self._open_file(self.__file_path)
         file_data.append({"platform": "HH" if "hh.ru" in vacancy.url else "SJ",
                           "name": vacancy.name,
@@ -78,6 +94,9 @@ class JSONSaver(VacancySaver, FileManagerMixin):
             json.dump(data_buf, file, indent=4, ensure_ascii=False)
 
     def clear_data_file(self):
+        """
+        Очищает информацию из json файла
+        """
         with open(self.__file_path, "w") as file:
             file.write(json.dumps([]))
 
