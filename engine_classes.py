@@ -19,7 +19,6 @@ class HeadHunter(APIEngine):
         """
         Метод осуществляет поиск по API HeadHunter в соответствии с ключевым словом
         """
-        print(requests.get(self.url, params=self.params).json()["items"])
         return requests.get(self.url, params=self.params).json()["items"]
 
     def get_vacancies(self):
@@ -51,9 +50,7 @@ class SuperJob(APIEngine):
         Метод осуществляет поиск по API SuperJob в соответствии с ключевым словом
         """
         headers = {'X-Api-App-Id': os.environ['X-Api-App-Id']}
-        ret = requests.get(self.url, headers=headers, params=self.params).json()["objects"]
-        print(ret)
-        return ret
+        return requests.get(self.url, headers=headers, params=self.params).json()["objects"]
 
     def get_vacancies(self):
         """
