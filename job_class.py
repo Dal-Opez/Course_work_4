@@ -25,6 +25,7 @@ class Vacancy:
         self.currency = currency
         self.salary_from = salary_from
         self.salary_to = salary_to
+        self.currency = "RUB" #Изначальная валюта нужна для конвертации. после конвертации записываем RUB
         self.description = description
         self.vacancy_list.append(self)
 
