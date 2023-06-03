@@ -33,6 +33,7 @@ class HeadHunter(APIEngine):
                     vacancy_data["salary"]["from"] if vacancy_data.get("salary") else None,
                     vacancy_data["salary"]["to"] if vacancy_data.get("salary") else None,
                     vacancy_data["snippet"]["requirement"])
+        print(f"Найдено {len(self.get_request())} вакансий на HeadHunter\n")
 
 
 class SuperJob(APIEngine):
@@ -65,3 +66,4 @@ class SuperJob(APIEngine):
                     vacancy_data["payment_from"],
                     vacancy_data["payment_to"],
                     vacancy_data["type_of_work"]["title"])
+        print(f"Найдено {len(self.get_request())} вакансий на SuperJob\n")
