@@ -14,7 +14,6 @@ class Vacancy:
         """
         currency_dict = requests.get("https://open.er-api.com/v6/latest/RUB").json()["rates"]
         currency_dict["BYR"] = 27.7339
-        print(currency_dict)
         return currency_dict
 
     currency_dict = get_currency()
@@ -93,9 +92,14 @@ class Vacancy:
 
     @salary_from.setter
     def salary_from(self, value):
-        if isinstance(value, int):
+        if self.__currency != '-' and isinstance(value, int):
             if self.currency_dict[self.currency] > 1:
-                self.__salary_from = round(round(value * self.currency_dict[self.currency] / 1000)) * 1000
+                first = round(value * self.currency_dict[self.currency])
+                second = round(first / 1000)
+                third = second * 1000
+                self.__salary_from = third
+                pass
+                # self.__salary_from = round(round(value * self.currency_dict[self.currency] / 1000)) * 1000
             else:
                 self.__salary_from = round(round(value / self.currency_dict[self.currency] / 1000)) * 1000
         else:
@@ -107,7 +111,7 @@ class Vacancy:
 
     @salary_to.setter
     def salary_to(self, value):
-        if isinstance(value, int):
+        if self.__currency != "-" and isinstance(value, int):
             if self.currency_dict[self.currency] > 1:
                 self.__salary_to = round(round(value * self.currency_dict[self.currency] / 1000)) * 1000
             else:
