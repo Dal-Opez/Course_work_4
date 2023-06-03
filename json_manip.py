@@ -21,7 +21,7 @@ class FileManagerMixin:
                 file.write(json.dumps([]))
 
     @staticmethod
-    def _open_file(file_path):
+    def open_file(file_path):
         """
         Открывает файл и считывает информацию в формате JSON
         """
@@ -49,7 +49,7 @@ class JSONSaver(VacancySaver, FileManagerMixin):
         """
         Добавляет вакансию в json файл
         """
-        file_data = self._open_file(self.__file_path)
+        file_data = self.open_file(self.__file_path)
         file_data.append({"platform": "HH" if "hh.ru" in vacancy.url else "SJ",
                           "name": vacancy.name,
                           "url": vacancy.url,
@@ -65,10 +65,10 @@ class JSONSaver(VacancySaver, FileManagerMixin):
         Осуществляет выбор вакансий по заработной плате
         """
         data_buf = []
-        file_data = self._open_file(self.__file_path)
+        file_data = self.open_file(self.__file_path)
         for vacancy in file_data:
             if vacancy["salary_from"] != 0 and vacancy["salary_from"] != 0:
-                if vacancy["salary_from"] <= min_salary or vacancy["salary_to"] >= min_salary:
+                if vacancy["salary_from"] >= min_salary or vacancy["salary_to"] >= min_salary:
                     data_buf.append(vacancy)
         Vacancy.vacancy_list.clear()
         for data in data_buf:
@@ -85,7 +85,7 @@ class JSONSaver(VacancySaver, FileManagerMixin):
         Удаляет вакансии, в которых не указана зарплата
         """
         data_buf = []
-        file_data = self._open_file(self.__file_path)
+        file_data = self.open_file(self.__file_path)
         for vacancy_data in file_data:
             if vacancy_data["salary_from"] == 0 and vacancy_data["salary_to"] == 0:
                 continue
