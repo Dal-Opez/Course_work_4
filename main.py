@@ -4,8 +4,7 @@ from json_manip import JSONSaver
 from utils import sort_vacancies, top_vacancies
 
 def user_interaction():
-    # user_keyword = input("Введите ключевое слово: ")
-    user_keyword = "Python"
+    user_keyword = input("Введите ключевое слово: ")
     platforms = []
     user_input = ""
     #Выбор платформ для поиска вакансий
